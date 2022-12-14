@@ -12,17 +12,39 @@ function App() {
 
   const [index, setIndex] = useState(0);
 
+  const nextSlide = () => {
+    setIndex((oldIndex) => {
+      let index = oldIndex + 1;
+      if (index > people.length - 1) {
+        index = 0;
+      }
+
+      return index;
+    });
+  };
+
+  const prevSlide = () => {
+    setIndex((oldIndex) => {
+      let index = oldIndex - 1;
+      if (index < 0) {
+        index = people.length - 1;
+      }
+
+      return index;
+    });
+  };
+
   // useEffect;
 
-  useEffect(() => {
-    const lastIndex = people.length - 1;
-    if (index < 0) {
-      setIndex(lastIndex);
-    }
-    if (index > lastIndex) {
-      setIndex(0);
-    }
-  }, [index, people]);
+  //   useEffect(() => {
+  //     const lastIndex = people.length - 1;
+  //     if (index < 0) {
+  //       setIndex(lastIndex);
+  //     }
+  //     if (index > lastIndex) {
+  //       setIndex(0);
+  //     }
+  //   }, [index, people]);
 
   useEffect(() => {
     let slider = setInterval(() => {
@@ -65,10 +87,10 @@ function App() {
           );
         })}
 
-        <button className="prev" onClick={() => setIndex(index - 1)}>
+        <button className="prev" onClick={prevSlide}>
           <FiChevronLeft />
         </button>
-        <button className="next" onClick={() => setIndex(index + 1)}>
+        <button className="next" onClick={nextSlide}>
           <FiChevronsRight />
         </button>
       </div>
